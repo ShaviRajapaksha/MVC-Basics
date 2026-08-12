@@ -1,29 +1,74 @@
 @model IEnumerable<MVC_Basics.Models.Movie>
-
+    
 @{
     ViewData["Title"] = "Movies";
 }
 
-<h1>Movies</h1>
+<div class="max-w-6xl mx-auto px-6 py-10">
 
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Release Date</th>
-            <th>Genre</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var movie in Model)
-        {
-            <tr>
-                <td>@movie.Id</td>
-                <td>@movie.Title</td>
-                <td>@movie.Genre</td>
-                <td>@movie.Price</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Movies
+        </h1>
+
+        <p class="text-gray-600 mt-2">
+            Movies stored in PostgreSQL
+        </p>
+    </div>
+
+    <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow">
+
+        <table class="w-full">
+
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        ID
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Title
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Genre
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Price
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200">
+
+                @foreach (var movie in Model)
+                {
+                    <tr class="hover:bg-gray-50">
+
+                        <td class="px-6 py-4">
+                            @movie.Id
+                        </td>
+
+                        <td class="px-6 py-4 font-medium">
+                            @movie.Title
+                        </td>
+
+                        <td class="px-6 py-4">
+                            @movie.Genre
+                        </td>
+
+                        <td class="px-6 py-4">
+                            Rs. @movie.Price
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
