@@ -1112,7 +1112,9 @@ Run the application:
 ```bash
 dotnet run
 ```
-
+```bash
+dotnet watch
+```
 Build:
 
 ```bash
