@@ -1,0 +1,108 @@
+@model IEnumerable<LibraryHub.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <div class="flex justify-between items-center mb-8">
+
+        <div>
+            <h1 class="text-3xl font-bold">
+                Books
+            </h1>
+
+            <p class="text-gray-600">
+                Manage books and their authors
+            </p>
+        </div>
+
+        <a asp-action="Create"
+           class="bg-blue-600 text-white px-5 py-2 rounded-lg">
+            + Add Book
+        </a>
+
+    </div>
+
+    <div class="bg-white border rounded-lg overflow-hidden">
+
+        <table class="w-full">
+
+            <thead class="bg-gray-100">
+
+            <tr>
+                <th class="px-6 py-4 text-left">ID</th>
+                <th class="px-6 py-4 text-left">Title</th>
+                <th class="px-6 py-4 text-left">ISBN</th>
+                <th class="px-6 py-4 text-left">Year</th>
+                <th class="px-6 py-4 text-left">Price</th>
+                <th class="px-6 py-4 text-left">Author</th>
+                <th class="px-6 py-4 text-left">Actions</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            @foreach (var book in Model)
+            {
+                <tr class="border-t">
+
+                    <td class="px-6 py-4">
+                        @book.Id
+                    </td>
+
+                    <td class="px-6 py-4 font-medium">
+                        @book.Title
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @book.ISBN
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @book.PublishedYear
+                    </td>
+
+                    <td class="px-6 py-4">
+                        Rs. @book.Price
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @book.Author?.Name
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        <a asp-action="Edit"
+                           asp-route-id="@book.Id"
+                           class="bg-yellow-500 text-white px-3 py-1 rounded">
+                            Edit
+                        </a>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@book.Id"
+                              method="post"
+                              class="inline"
+                              onsubmit="return confirm('Delete this book?');">
+
+                            <button type="submit"
+                                    class="bg-red-600 text-white px-3 py-1 rounded">
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
