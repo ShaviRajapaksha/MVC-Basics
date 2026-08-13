@@ -1,0 +1,49 @@
+@model LibraryHub.Models.Author
+
+@{
+    ViewData["Title"] = "Edit Author";
+}
+
+<div class="max-w-xl mx-auto px-6 py-10">
+
+    <h1 class="text-3xl font-bold mb-8">
+        Edit Author
+    </h1>
+
+    <form asp-action="Edit" method="post" class="space-y-5">
+
+        <input type="hidden" asp-for="Id" />
+
+        <div>
+            <label asp-for="Name"
+                   class="block mb-2 font-medium">
+                Name
+            </label>
+
+            <input asp-for="Name"
+                   class="w-full border rounded-lg px-4 py-2" />
+        </div>
+
+        <div>
+            <label asp-for="Country"
+                   class="block mb-2 font-medium">
+                Country
+            </label>
+
+            <input asp-for="Country"
+                   class="w-full border rounded-lg px-4 py-2" />
+        </div>
+
+        <button type="submit"
+                class="bg-yellow-500 text-white px-5 py-2 rounded-lg">
+            Save Changes
+        </button>
+
+        <a asp-action="Index"
+           class="bg-gray-300 px-5 py-2 rounded-lg">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
