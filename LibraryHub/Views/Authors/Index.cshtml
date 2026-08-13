@@ -1,0 +1,93 @@
+@model IEnumerable<LibraryHub.Models.Author>
+
+@{
+    ViewData["Title"] = "Authors";
+}
+
+<div class="max-w-6xl mx-auto px-6 py-10">
+
+    <div class="flex justify-between items-center mb-8">
+
+        <div>
+            <h1 class="text-3xl font-bold">
+                Authors
+            </h1>
+
+            <p class="text-gray-600">
+                Manage library authors
+            </p>
+        </div>
+
+        <a asp-action="Create"
+           class="bg-blue-600 text-white px-5 py-2 rounded-lg">
+            + Add Author
+        </a>
+
+    </div>
+
+    <div class="bg-white border rounded-lg overflow-hidden">
+
+        <table class="w-full">
+
+            <thead class="bg-gray-100">
+
+            <tr>
+                <th class="px-6 py-4 text-left">ID</th>
+                <th class="px-6 py-4 text-left">Name</th>
+                <th class="px-6 py-4 text-left">Country</th>
+                <th class="px-6 py-4 text-left">Actions</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            @foreach (var author in Model)
+            {
+                <tr class="border-t">
+
+                    <td class="px-6 py-4">
+                        @author.Id
+                    </td>
+
+                    <td class="px-6 py-4 font-medium">
+                        @author.Name
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @author.Country
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        <a asp-action="Edit"
+                           asp-route-id="@author.Id"
+                           class="bg-yellow-500 text-white px-3 py-1 rounded">
+                            Edit
+                        </a>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@author.Id"
+                              method="post"
+                              class="inline"
+                              onsubmit="return confirm('Delete this author?');">
+
+                            <button type="submit"
+                                    class="bg-red-600 text-white px-3 py-1 rounded">
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
