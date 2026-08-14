@@ -1,0 +1,103 @@
+@model IEnumerable<LibraryHub.Models.Borrowing>
+
+@{
+    ViewData["Title"] = "Borrowings";
+}
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <div class="flex justify-between items-center mb-8">
+
+        <div>
+            <h1 class="text-3xl font-bold">
+                Borrowings
+            </h1>
+
+            <p class="text-gray-600">
+                Track borrowed books
+            </p>
+        </div>
+
+        <a asp-action="Create"
+           class="bg-blue-600 text-white px-5 py-2 rounded-lg">
+            + New Borrowing
+        </a>
+
+    </div>
+
+    <div class="bg-white border rounded-lg overflow-hidden">
+
+        <table class="w-full">
+
+            <thead class="bg-gray-100">
+
+            <tr>
+                <th class="px-6 py-4 text-left">ID</th>
+                <th class="px-6 py-4 text-left">Book</th>
+                <th class="px-6 py-4 text-left">Member</th>
+                <th class="px-6 py-4 text-left">Borrowed</th>
+                <th class="px-6 py-4 text-left">Returned</th>
+                <th class="px-6 py-4 text-left">Actions</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            @foreach (var borrowing in Model)
+            {
+                <tr class="border-t">
+
+                    <td class="px-6 py-4">
+                        @borrowing.Id
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @borrowing.Book?.Title
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @borrowing.Member?.Name
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @borrowing.BorrowedDate.ToString("yyyy-MM-dd")
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @(borrowing.ReturnedDate?.ToString("yyyy-MM-dd") ?? "Not returned")
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        <a asp-action="Edit"
+                           asp-route-id="@borrowing.Id"
+                           class="bg-yellow-500 text-white px-3 py-1 rounded">
+                            Edit
+                        </a>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@borrowing.Id"
+                              method="post"
+                              class="inline"
+                              onsubmit="return confirm('Delete this borrowing?');">
+
+                            <button type="submit"
+                                    class="bg-red-600 text-white px-3 py-1 rounded">
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
