@@ -1,0 +1,103 @@
+@model LibraryHub.Models.Borrowing
+
+@{
+    ViewData["Title"] = "New Borrowing";
+}
+
+<div class="max-w-xl mx-auto px-6 py-10">
+
+    <h1 class="text-3xl font-bold mb-8">
+        New Borrowing
+    </h1>
+
+    <form asp-action="Create" method="post" class="space-y-5">
+
+        <div>
+
+            <label asp-for="BookId"
+                   class="block mb-2 font-medium">
+                Book
+            </label>
+
+            <select asp-for="BookId"
+                    class="w-full border rounded-lg px-4 py-2">
+
+                <option value="">
+                    Select Book
+                </option>
+
+                @foreach (var book in ViewBag.Books)
+                {
+                    <option value="@book.Id">
+                        @book.Title
+                    </option>
+                }
+
+            </select>
+
+        </div>
+
+        <div>
+
+            <label asp-for="MemberId"
+                   class="block mb-2 font-medium">
+                Member
+            </label>
+
+            <select asp-for="MemberId"
+                    class="w-full border rounded-lg px-4 py-2">
+
+                <option value="">
+                    Select Member
+                </option>
+
+                @foreach (var member in ViewBag.Members)
+                {
+                    <option value="@member.Id">
+                        @member.Name
+                    </option>
+                }
+
+            </select>
+
+        </div>
+
+        <div>
+
+            <label asp-for="BorrowedDate"
+                   class="block mb-2 font-medium">
+                Borrowed Date
+            </label>
+
+            <input asp-for="BorrowedDate"
+                   type="date"
+                   class="w-full border rounded-lg px-4 py-2" />
+
+        </div>
+
+        <div>
+
+            <label asp-for="ReturnedDate"
+                   class="block mb-2 font-medium">
+                Returned Date
+            </label>
+
+            <input asp-for="ReturnedDate"
+                   type="date"
+                   class="w-full border rounded-lg px-4 py-2" />
+
+        </div>
+
+        <button type="submit"
+                class="bg-blue-600 text-white px-5 py-2 rounded-lg">
+            Create
+        </button>
+
+        <a asp-action="Index"
+           class="bg-gray-300 px-5 py-2 rounded-lg">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
