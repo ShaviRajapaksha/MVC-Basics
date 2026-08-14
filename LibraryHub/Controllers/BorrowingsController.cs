@@ -33,12 +33,19 @@ public class BorrowingsController : Controller
     }
 
     // POST: /Borrowings/Create
+    // POST: /Borrowings/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(Borrowing borrowing)
     {
         if (ModelState.IsValid)
         {
+            // Always store the borrowing time as UTC
+            borrowing.BorrowedDate = DateTime.UtcNow;
+
+            // A new borrowing has not been returned yet
+            borrowing.ReturnedDate = null;
+
             _context.Borrowings.Add(borrowing);
             _context.SaveChanges();
 
@@ -47,6 +54,7 @@ public class BorrowingsController : Controller
 
         ViewBag.Books = _context.Books.ToList();
         ViewBag.Members = _context.Members.ToList();
+
         return View(borrowing);
     }
 
@@ -75,8 +83,22 @@ public class BorrowingsController : Controller
             return NotFound();
         }
 
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
+            // Make sure DateTimes coming from the form are treated as UTC
+            borrowing.BorrowedDate = DateTime.SpecifyKind(
+                borrowing.BorrowedDate,
+                DateTimeKind.Utc
+            );
+
+            if (borrowing.ReturnedDate.HasValue)
+            {
+                borrowing.ReturnedDate = DateTime.SpecifyKind(
+                    borrowing.ReturnedDate.Value,
+                    DateTimeKind.Utc
+                );
+            }
+
             _context.Borrowings.Update(borrowing);
             _context.SaveChanges();
 
